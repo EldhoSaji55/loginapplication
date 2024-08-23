@@ -90,9 +90,6 @@ class _LoginscreenState extends State<Loginscreen> {
                         return "Please Enter your Password";
                       } else if (value.length < 6) {
                         return "Password Must contain more than 6 characters";
-                      } else if (passwordController.text ==
-                          regUsers[0][emailController.text]) {
-                        return ("Incorrect Email and Password");
                       } else {
                         return null;
                       }
