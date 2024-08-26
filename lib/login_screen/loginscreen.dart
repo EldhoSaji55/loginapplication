@@ -69,32 +69,34 @@ class _LoginscreenState extends State<Loginscreen> {
                     height: 30,
                   ),
                   TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                        hintText: "Your Password",
-                        suffixIcon: GestureDetector(
-                            onTap: () {},
-                            child: Icon(Icons.remove_red_eye_outlined)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red)),
-                        focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please Enter your Password";
-                      } else if (value.length < 6) {
-                        return "Password Must contain more than 6 characters";
-                      } else {
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                          hintText: "Your Password",
+                          suffixIcon: GestureDetector(
+                              onTap: () {},
+                              child: Icon(Icons.remove_red_eye_outlined)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red))),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please Enter your Password";
+                        } else if (value.length < 6) {
+                          return "Password Must contain more than 6 characters";
+                        } else if (!regUsers.any((user) =>
+                            user[emailController.text] ==
+                            passwordController.text)) {
+                          return "Incorrect Email and Password";
+                        }
                         return null;
-                      }
-                    },
-                  ),
+                      }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
