@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loginapplication/login_screen/loginscreen.dart';
+import 'package:loginapplication/controller/homeScreenController.dart';
+import 'package:loginapplication/view/login_screen/loginscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<Map<String, String>> regUsers = [];
 
@@ -125,16 +127,18 @@ class _RegistrationscreenState extends State<Registrationscreen> {
                     height: 30,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        regUsers.add(
-                            {emailController.text: passwordController.text});
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Loginscreen(),
-                            ));
-                      }
+                    onPressed: () async {
+                      var email = emailController.text.toString();
+                      var password = passwordController.text.toString();
+                      Homescreencontroller.addvalue(email, password);
+                      // if (_formKey.currentState!.validate()) {
+                      //   regUsers.add(
+                      //       {emailController.text: passwordController.text});
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Loginscreen(),
+                          ));
                     },
                     child: Text("Sign Up"),
                     style: ButtonStyle(

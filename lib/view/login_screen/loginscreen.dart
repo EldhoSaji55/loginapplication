@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loginapplication/home_screen/home_screen.dart';
-import 'package:loginapplication/registration_screen/registrationscreen.dart';
+import 'package:loginapplication/controller/homeScreenController.dart';
+import 'package:loginapplication/view/home_screen/home_screen.dart';
+import 'package:loginapplication/view/registration_screen/registrationscreen.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -16,6 +17,15 @@ class _LoginscreenState extends State<Loginscreen> {
 
   //formKey
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        await Homescreencontroller.initsharedprefs();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +81,7 @@ class _LoginscreenState extends State<Loginscreen> {
                   TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
+                          border: OutlineInputBorder(),
                           hintText: "Your Password",
                           suffixIcon: GestureDetector(
                               onTap: () {},
@@ -123,12 +134,17 @@ class _LoginscreenState extends State<Loginscreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                      var email = emailController.text.toString();
+                      var password = passwordController.text.toString();
+                      Homescreencontroller.getvalue(email);
+                      if (password == Homescreencontroller.password) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomeScreen(),
                             ));
+                      } else {
+                        print(Homescreencontroller.password);
                       }
                     },
                     child: Text("Sign in"),
